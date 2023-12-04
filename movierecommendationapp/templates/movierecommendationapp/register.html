@@ -1,0 +1,159 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+
+<!DOCTYPE html>
+<html>
+ <head>
+ <meta charset="utf-8">
+ <title>Register</title>
+ <link rel="stylesheet" href="{% static 'css/credentials.css' %}">
+ </head>
+
+ <body>
+    <section class="background-radial-gradient overflow-hidden">
+        <style>
+          .background-radial-gradient {
+            background-color: hsl(227, 100%, 78%);
+            background-image: radial-gradient(650px circle at 0% 0%,
+                hsl(227, 100%, 78%) 15%,
+                hsl(227, 100%, 78%) 35%,
+                hsl(227, 100%, 78%) 75%,
+                hsl(227, 100%, 78%) 80%,
+                transparent 100%),
+              radial-gradient(1250px circle at 100% 100%,
+                hsl(227, 100%, 78%) 15%,
+                hsl(227, 100%, 78%) 35%,
+                hsl(227, 100%, 78%) 75%,
+                hsl(227, 100%, 78%) 80%,
+                transparent 100%);
+          }
+      
+          #radius-shape-1 {
+            height: 220px;
+            width: 220px;
+            top: -60px;
+            left: -130px;
+            background: radial-gradient(#fff47e, #fff697);
+            overflow: hidden;
+          }
+      
+          #radius-shape-2 {
+            border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+            bottom: -60px;
+            right: -110px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(#fff47e, #fff697);
+            overflow: hidden;
+          }
+      
+          .bg-glass {
+            background-color: hsla(0, 0%, 100%, 0.9) !important;
+            backdrop-filter: saturate(200%) blur(25px);
+          }
+    
+          .no-underline {
+            text-decoration: none;
+            color: #6471ff
+              
+          }
+          
+        </style>
+        <img src="{% static 'css/moon.png' %}" width="200" height="200"/>
+        <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+          <div class="row gx-lg-5 align-items-center mb-5">
+            <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+              <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 99%)">
+                Welcome to LunaFilms <br />
+                <span style="color: hsl(218, 81%, 88%)">A Movie Recommendation System</span>
+              </h1>
+            </div>
+      
+            <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+              <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+              <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+      
+              <div class="card bg-glass">
+                <div class="card-body px-4 py-5 px-md-5">
+                  <form method="POST" action="">
+                    <h2>Register here</h2>
+                    {% csrf_token %}
+                    <div>
+                        {%if messages%}
+                            {%for message in messages%}
+                                <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                    <button class="alert alert-primary" role="alert" onclick="this.parentElement.style.display='none';">
+                                        &times; {{ message }}
+                                    </button>
+                                </div>
+                            {%endfor%}
+                        {%endif%} 
+                    </div>
+        
+                     <div>
+                        {% if form.errors %}
+                            <div class="error">
+                                <p> An error has occured. Please retry.</p> 
+                             </div>
+                        {% endif %}
+                    </div>  
+      
+                    <!-- Username -->
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example3">Username</label>
+                      {{form.username}}
+                    </div>
+      
+                    <!-- Email -->
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example4">Email address</label>
+                      {{form.email}}
+                    </div>
+
+                    <!-- Password 1-->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example5">Password</label>
+                        {{form.password1}}
+                    </div>
+
+                    <!-- Password 2-->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example6">Confirm Password</label>
+                        {{form.password2}}
+                    </div>
+        
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary btn-block mb-4">
+                        Register
+                    </button>
+    
+                    <div>
+                        <p>Already a member?  
+                            <a href="http://localhost:8000" class="no-underline">Login</a>
+                        </p>
+                    </div>
+
+                    <small id="passwordInfo" class="form-text text-muted">
+                        <ul>
+                            <li> Your password must contain at least 8 characters, including letters, numbers and symbols</li>
+                            <li> Your password cannot be too similar to your other personal information</li>
+                            <li> Your password cannot be a commonly used password and entirely numeric </li>
+                        </ul>
+                    </small>
+                    <small id="matchPassword" class="form-text text-muted">
+                        <ul>
+                            <li> Please make sure both password match </li>
+                            <li> Do not copy and paste passwords</li>
+                        </ul>
+                    </small>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+ </body>
+ </html>
